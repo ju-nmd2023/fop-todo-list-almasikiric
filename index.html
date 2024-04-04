@@ -8,19 +8,27 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>TO DO LIST</h1>
-    <form id header-list-input>
-      <input
-        type="text"
-        id="input-text"
-        placeholder="Your plans for today
-      are..."
-      />
-      <button type="submit" class="add-items" , id="add-items">ADD</button>
-    </form>
-
+    <h1>YOUR PERSONAL TO DO LIST</h1>
     <section class="list-grid-container">
-      <div class="white-box"></div>
+      <form class="adding-new-tasks">
+        <input
+          type="text"
+          class="input-text"
+          placeholder="YOUR PLANS FOR TODAY ARE..."
+        />
+        <button type="submit" class="button" , id="add-button">ADD</button>
+      </form>
+
+      <!-- THE ADDED PLANS START HERE -->
+      <form class="added-task-list">
+        <input type="text" class="task-form" />
+        <div class="button-group">
+          <button type="submit" class="button" , id="edit-button">EDIT</button>
+          <button type="submit" class="button" , id="delete-button">
+            DELETE
+          </button>
+        </div>
+      </form>
     </section>
   </body>
 </html>
