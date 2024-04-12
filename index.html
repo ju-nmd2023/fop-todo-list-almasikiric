@@ -6,29 +6,45 @@
     <title>TO DO LIST</title>
     <!-- <script src="main.js" defer></script> -->
     <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
   </head>
   <body>
-    <h1>YOUR PERSONAL TO DO LIST</h1>
-    <section class="list-grid-container">
+    <h1>TO DO LIST PLANNER</h1>
+    <section class="list-grid-container" id="grid-container">
       <form class="adding-new-tasks">
         <input
           type="text"
           class="input-text"
+          id="input-field-add"
           placeholder="YOUR PLANS FOR TODAY ARE..."
         />
         <button type="submit" class="button" , id="add-button">ADD</button>
       </form>
 
       <!-- THE ADDED PLANS START HERE -->
-      <form class="added-task-list">
-        <input type="text" class="task-form" />
-        <div class="button-group">
-          <button type="submit" class="button" , id="edit-button">EDIT</button>
+      <div class="task-div task-done" id="task-container">
+        <ul id="ul-task-list">
+          <!-- <li id="task-element"></li> -->
+        </ul>
+
+        <!-- <div class="button-group done">
           <button type="submit" class="button" , id="delete-button">
             DELETE
           </button>
-        </div>
-      </form>
+          <button type="submit" class="button" , id="complete-button">
+            COMPLETE
+          </button>
+        </div> -->
+      </div>
     </section>
   </body>
 </html>
+
+<!-- 
+<form class="task-edit-form">
+  <input
+    type="text"
+    id="added-tasks"
+    class="input-text input-done"
+    placeholder="STUDY PROGRAMMING"
+  /> -->
