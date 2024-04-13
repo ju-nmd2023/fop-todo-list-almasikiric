@@ -17,7 +17,7 @@
 // element should be inserted onto the webpage
 
 //save in local storage
-window.onload = function () {}
+window.onload = function () {};
 const addButton = document.getElementById("add-button");
 //const inputComplete = document.getElementById("complete-button");
 const inputFieldAdd = document.getElementById("input-field-add");
@@ -66,7 +66,7 @@ function displayTask() {
 
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "DELETE";
-    deleteButton.classList.add("delete-button");
+    deleteButton.classList.add("button delete-button");
     taskElement.append(deleteButton);
 
     taskContainer.append(taskElement);

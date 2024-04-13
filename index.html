@@ -4,22 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TO DO LIST</title>
-    <!-- <script src="main.js" defer></script> -->
     <link rel="stylesheet" href="style.css" />
-    <script src="main.js" defer></script>
+    <script src="main.js" type="text/javascript" defer></script>
   </head>
   <body>
     <h1>TO DO LIST PLANNER</h1>
     <section class="list-grid-container" id="grid-container">
-      <form class="adding-new-tasks">
+      <div class="adding-new-tasks">
         <input
           type="text"
           class="input-text"
           id="input-field-add"
           placeholder="YOUR PLANS FOR TODAY ARE..."
+          autocomplete="off"
         />
-        <button type="submit" class="button" , id="add-button">ADD</button>
-      </form>
+        <button class="button" id="add-button">ADD</button> 
+      </div>
 
       <!-- THE ADDED PLANS START HERE -->
       <div class="task-div task-done" id="task-container">
