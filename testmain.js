@@ -44,10 +44,6 @@ function addTasks() {
   }
 }
 
-function deleteTasks() {
-  alert("task");
-}
-
 function displayTask() {
   //li section
   // When clicking add, we access the li element here
@@ -60,9 +56,9 @@ function displayTask() {
     // delete and complete button section. Add buttons with classes
     const completeButton = document.createElement("button");
 
-    completeButton.innerText = "COMPLETE"; // says complete in button2
+    completeButton.innerText = "COMPLETE"; // says complete in button
     completeButton.classList.add("complete-button"); //here button is accessed from html
-    taskElement.append(completeButton);
+    taskElement.append(completeButton); //taskelement (parent) attaches/appends its child, completebutton here so its visible
 
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "DELETE";

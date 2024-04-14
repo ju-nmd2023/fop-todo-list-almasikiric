@@ -28,16 +28,16 @@ function displayTasks() {
     // alert(taskNumber);
     let taskElement = document.createElement("li");
     taskElement.innerHTML = task.JSONTaskText;
-    taskContainer.append(taskElement);
     //complete button
     let button = document.createElement("button");
     button.classList.add("complete-button");
     button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
+
     button.onclick = function () {
-      let taskNumber = tasks.indexOf(task);
+      let taskNumber = tasks.indexOf(task); //finds the task and says its place in the array.
       toggleTasks(taskNumber);
     };
-    taskElement.append(button);
+    taskElement.append(button); //taskelement (parent) attaches/appends/connect its child, button here so its visible
 
     //delete button
     button = document.createElement("button");
@@ -50,6 +50,7 @@ function displayTasks() {
     };
 
     taskElement.append(button);
+    taskContainer.append(taskElement);
   });
 }
 
@@ -61,19 +62,6 @@ function deleteTask(taskNumber) {
   tasks.splice(taskNumber, 1);
   displayTasks();
 }
-// //function toggleTaskStatus(id) {
-//   if (tasks[id].statusDone) {
-//     tasks[id].statusDone = false;
-//   } else {
-//     tasks[id].statusDone = true;
-//   }
-// function toggleTasks(taskNumber) {
-//   if (tasks[taskNumber].statusDone) {
-//     tasks[taskNumber].statusDone = false;
-//   } else {
-//     tasks[taskNumber].statusDone = true;
-//   }
-// }
 
 // let buttons = document.querySelector("button");
 // let buttonDone = document.querySelector("button-group-done");
