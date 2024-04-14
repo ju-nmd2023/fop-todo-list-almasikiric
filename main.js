@@ -26,13 +26,15 @@ function displayTasks() {
     let taskElement = document.createElement("li");
     taskElement.innerHTML = task.addedTaskText;
 
-    if (task.complete === true) {
-      taskElement.classList.add("button-group-done");
-    }
     //complete button
     let button = document.createElement("button");
     button.classList.add("complete-button");
     button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
+
+    if (task.complete === true) {
+      taskElement.classList.add("button-group-done");
+      button.innerText = "COMPLETED";
+    }
 
     button.onclick = function () {
       let taskNumber = tasks.indexOf(task); //finds the task and says its place in the array.
