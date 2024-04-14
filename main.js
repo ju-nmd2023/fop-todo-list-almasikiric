@@ -10,7 +10,6 @@ function addedTasks() {
 
   if (newTaskText !== "") {
     tasks.push({ addedTaskText: newTaskText, complete: false });
-    tasks[0].addedTaskText = "bajsapa";
     inputFieldAdd.value = "";
     displayTasks();
   } else {
@@ -21,12 +20,15 @@ function addedTasks() {
 
 function displayTasks() {
   taskContainer.innerHTML = ""; //empties entire tasklist
-  //array starts at place 0 but 1 is added in 1st loop cycle
-  // let taskNumber = -1;
+
   //Loop
   tasks.forEach((task) => {
     let taskElement = document.createElement("li");
     taskElement.innerHTML = task.addedTaskText;
+
+    if (task.complete === true) {
+      taskElement.classList.add("button-group-done");
+    }
     //complete button
     let button = document.createElement("button");
     button.classList.add("complete-button");
@@ -75,12 +77,10 @@ function toggleTasks(taskNumber) {
   if (tasks[taskNumber].complete === false) {
     //if its false
     tasks[taskNumber].complete = true; //change to true
-    
   } else {
     //if its true
     tasks[taskNumber].complete = false; //change to false
   }
-  alert(tasks[taskNumber].complete);
 
   displayTasks();
 }
