@@ -9,7 +9,8 @@ function addedTasks() {
   let newTaskText = inputFieldAdd.value.trim(); // removes extra spaces between words or letters, also before and after
 
   if (newTaskText !== "") {
-    tasks.push({ JSONTaskText: newTaskText, checked: false });
+    tasks.push({ addedTaskText: newTaskText, complete: false });
+    tasks[0].addedTaskText = "bajsapa";
     inputFieldAdd.value = "";
     displayTasks();
   } else {
@@ -24,10 +25,8 @@ function displayTasks() {
   // let taskNumber = -1;
   //Loop
   tasks.forEach((task) => {
-    // taskNumber = taskNumber + 1;
-    // alert(taskNumber);
     let taskElement = document.createElement("li");
-    taskElement.innerHTML = task.JSONTaskText;
+    taskElement.innerHTML = task.addedTaskText;
     //complete button
     let button = document.createElement("button");
     button.classList.add("complete-button");
@@ -53,13 +52,40 @@ function displayTasks() {
     taskContainer.append(taskElement);
   });
 }
+//it already has a click function in display tasks so that should be solved
+// create a function with a name, and access tasknumber in it so that it can TARGET one task
+// create a let or const ? dont know
+// create element AND class? task by adding complete button done (the one with red and strikethrough)
+
+// add toggle task function with ture false  statement
+// if should be if task is complete, it should be a line
+// otherwise, else should be resetted to normal.
+//how to keep track of task status. complete/ not complete?
+
+//create boo lean so that the correct task and index is complete when its true, otherwise false
+
+// complete should be able to go in a loop so u can click it on off, but im not sure how, maybe forEach?
+// displaytasks should be called in the function so that they are visible
+
+// (save in local storage)
 
 function toggleTasks(taskNumber) {
-  tasks.splice(taskNumber, 1);
+  //when its completed task looks like this {addedTaskText: "whatever", complete: true}
+  // false: {addedTaskText: "whatever", complete: false}  <-- this value gets changed
+  if (tasks[taskNumber].complete === false) {
+    //if its false
+    tasks[taskNumber].complete = true; //change to true
+    
+  } else {
+    //if its true
+    tasks[taskNumber].complete = false; //change to false
+  }
+  alert(tasks[taskNumber].complete);
+
   displayTasks();
 }
 function deleteTask(taskNumber) {
-  tasks.splice(taskNumber, 1);
+  tasks.splice(taskNumber, 1); //removes 1 task at clicked place (taskNumber)
   displayTasks();
 }
 
