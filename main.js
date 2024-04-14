@@ -33,12 +33,10 @@ function displayTasks() {
     let button = document.createElement("button");
     button.classList.add("complete-button");
     button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
-
-    // button.onclick = function () {
-    //   //citation
-    //   completeTask();
-    // };
-
+    button.onclick = function () {
+      let taskNumber = tasks.indexOf(task);
+      toggleTasks(taskNumber);
+    };
     taskElement.append(button);
 
     //delete button
@@ -46,7 +44,7 @@ function displayTasks() {
     button.classList.add("delete-button");
     button.innerText = "DELETE";
     button.onclick = function () {
-      //finds the index/number the task has, dont know how else to get it, incrementing tasknumber was flawed
+      //finds the index/number the task has, dont know how else to get it, incrementing tasknumber was flawed. Citation line 49-52 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
       let taskNumber = tasks.indexOf(task);
       deleteTask(taskNumber);
     };
@@ -55,10 +53,48 @@ function displayTasks() {
   });
 }
 
+function toggleTasks(taskNumber) {
+  tasks.splice(taskNumber, 1);
+  displayTasks();
+}
 function deleteTask(taskNumber) {
   tasks.splice(taskNumber, 1);
   displayTasks();
 }
+// //function toggleTaskStatus(id) {
+//   if (tasks[id].statusDone) {
+//     tasks[id].statusDone = false;
+//   } else {
+//     tasks[id].statusDone = true;
+//   }
+// function toggleTasks(taskNumber) {
+//   if (tasks[taskNumber].statusDone) {
+//     tasks[taskNumber].statusDone = false;
+//   } else {
+//     tasks[taskNumber].statusDone = true;
+//   }
+// }
+
+// let buttons = document.querySelector("button");
+// let buttonDone = document.querySelector("button-group-done");
+// buttons.className = "button";
+// buttonDone = "button-group-done";
+
+// if (completeTask.checked) {
+//   buttons.classList.add("button-group-done");
+// } else {
+//   buttons.classList.remove("button");
+// }
+// const completeButtonDone = classList.add("button-group-done");
+// completeButtonDone.classList.add("button-group-done", !isDone);
+// if (completeButtonDone) {
+//   completeButtonDone.toggle("button-group-done");
+
+// } else {
+//   completeButtonDone.remove("button-group-done");
+
+// }
+
 //Adding tasks with enter
 inputFieldAdd.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
@@ -69,4 +105,4 @@ inputFieldAdd.addEventListener("keypress", function (event) {
 
 addButton.addEventListener("click", addedTasks); //When the add button is clicked, the function addedtasks runs
 
-// REMOVE TASKS
+////https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it
