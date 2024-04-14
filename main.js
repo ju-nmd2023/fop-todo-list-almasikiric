@@ -19,43 +19,46 @@ function addedTasks() {
 }
 
 function displayTasks() {
-  taskContainer.innerHTML = "";
+  taskContainer.innerHTML = ""; //empties entire tasklist
+  //array starts at place 0 but 1 is added in 1st loop cycle
+  // let taskNumber = -1;
   //Loop
   tasks.forEach((task) => {
+    // taskNumber = taskNumber + 1;
+    // alert(taskNumber);
     let taskElement = document.createElement("li");
     taskElement.innerHTML = task.JSONTaskText;
     taskContainer.append(taskElement);
+    //complete button
+    let button = document.createElement("button");
+    button.classList.add("complete-button");
+    button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
 
-    let buttons = document.createElement("button");
-    buttons.classList.add("complete-button");
-    buttons.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
-
-    taskElement.append(buttons);
-
-    buttons = document.createElement("button");
-    buttons.classList.add("delete-button");
-    buttons.innerText = "DELETE";
-
-    //deletes task when clicking
-    // deleteButton.onclick = function () {
-    //   deleteTask(taskNumber);
+    // button.onclick = function () {
+    //   //citation
+    //   completeTask();
     // };
-    taskElement.append(buttons);
-    // tasks.splice(addedTasks);
+
+    taskElement.append(button);
+
+    //delete button
+    button = document.createElement("button");
+    button.classList.add("delete-button");
+    button.innerText = "DELETE";
+    button.onclick = function () {
+      //finds the index/number the task has, dont know how else to get it, incrementing tasknumber was flawed
+      let taskNumber = tasks.indexOf(task);
+      deleteTask(taskNumber);
+    };
+
+    taskElement.append(button);
   });
-
-  //   const removeButton = document.createElement("button");
-  //   removeButton.innerText = "✖︎";
-  //   removeButton.onclick = function () {
-  //     removeTask(index);
-  //   };
-  //   removeButton.setAttribute("class", "deletebutton");
-
-  //   newTask.appendChild(removeButton);
-  //   taskList.appendChild(newTask);
-  // });
 }
 
+function deleteTask(taskNumber) {
+  tasks.splice(taskNumber, 1);
+  displayTasks();
+}
 //Adding tasks with enter
 inputFieldAdd.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
@@ -67,7 +70,3 @@ inputFieldAdd.addEventListener("keypress", function (event) {
 addButton.addEventListener("click", addedTasks); //When the add button is clicked, the function addedtasks runs
 
 // REMOVE TASKS
-
-function deleteTask(taskNumber) {
-  tasks.splice(taskNumber, 1);
-}
