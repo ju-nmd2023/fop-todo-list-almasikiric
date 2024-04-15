@@ -3,7 +3,14 @@ const inputFieldAdd = document.getElementById("input-field-add");
 const taskContainer = document.getElementById("ul-task-list");
 
 let tasks = []; //Creating an array
-//JSON HERE
+
+//load in local storage
+if (localStorage.getItem("tasks") === null) {
+  tasks = [];
+} else {
+  tasks = JSON.parse(localStorage.getItem("tasks"));
+  displayTasks();
+}
 
 function addedTasks() {
   let newTaskText = inputFieldAdd.value.trim(); // removes extra spaces between words or letters, also before and after
@@ -18,36 +25,42 @@ function addedTasks() {
   }
 }
 
+//empties entire tasklist
 function displayTasks() {
-  taskContainer.innerHTML = ""; //empties entire tasklist
+  taskContainer.innerHTML = "";
 
-  //Loop
+  //The loop of the array starts here
   tasks.forEach((task) => {
     let taskElement = document.createElement("li");
     taskElement.innerHTML = task.addedTaskText;
 
-    //complete button
+    //Creating the complete button, got inspiration from here how to add HTML elements: https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it 
     let button = document.createElement("button");
     button.classList.add("complete-button");
     button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
 
+    //Actually says WHEN task.complete is true, 37, 38 runs.
     if (task.complete === true) {
       taskElement.classList.add("button-group-done");
       button.innerText = "COMPLETED";
     }
 
+    //finds the task and says its place in the array.
     button.onclick = function () {
-      let taskNumber = tasks.indexOf(task); //finds the task and says its place in the array.
+      let taskNumber = tasks.indexOf(task);
       toggleTasks(taskNumber);
     };
-    taskElement.append(button); //taskelement (parent) attaches/appends/connect its child, button here so its visible
 
-    //delete button
+    //taskelement (parent) attaches/appends/connect its child, button here so its visible
+    taskElement.append(button);
+
+    //delete button added from HTML
     button = document.createElement("button");
     button.classList.add("delete-button");
     button.innerText = "DELETE";
+
+    //finds the index/number the task has, dont know how else to get it, incrementing tasknumber was flawed. Citation line 49-52 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
     button.onclick = function () {
-      //finds the index/number the task has, dont know how else to get it, incrementing tasknumber was flawed. Citation line 49-52 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
       let taskNumber = tasks.indexOf(task);
       deleteTask(taskNumber);
     };
@@ -55,7 +68,11 @@ function displayTasks() {
     taskElement.append(button);
     taskContainer.append(taskElement);
   });
+
+  //save in local storage
+  localStorage.tasks = JSON.stringify(tasks);
 }
+
 //it already has a click function in display tasks so that should be solved
 // create a function with a name, and access tasknumber in it so that it can TARGET one task
 // create a let or const ? dont know
@@ -91,34 +108,13 @@ function deleteTask(taskNumber) {
   displayTasks();
 }
 
-// let buttons = document.querySelector("button");
-// let buttonDone = document.querySelector("button-group-done");
-// buttons.className = "button";
-// buttonDone = "button-group-done";
-
-// if (completeTask.checked) {
-//   buttons.classList.add("button-group-done");
-// } else {
-//   buttons.classList.remove("button");
-// }
-// const completeButtonDone = classList.add("button-group-done");
-// completeButtonDone.classList.add("button-group-done", !isDone);
-// if (completeButtonDone) {
-//   completeButtonDone.toggle("button-group-done");
-
-// } else {
-//   completeButtonDone.remove("button-group-done");
-
-// }
-
 //Adding tasks with enter
 inputFieldAdd.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
-    inputFieldAdd.blur(); //removes the text marker after pressing enter, resets. Citation line 32: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/blur 13/4/2024
+    inputFieldAdd.blur(); //removes the text marker after pressing enter, resets. Citation line 103: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/blur 13/4/2024
     addedTasks();
   }
 });
 
-addButton.addEventListener("click", addedTasks); //When the add button is clicked, the function addedtasks runs
-
-////https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it
+//When the add button is clicked, the function addedtasks runs
+addButton.addEventListener("click", addedTasks);
