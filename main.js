@@ -5,8 +5,7 @@ const taskContainer = document.getElementById("ul-task-list");
 let tasks = []; //Creating an array
 
 //load in local storage
-if (localStorage.getItem("tasks") === null) {
-} else {
+if (localStorage.getItem("tasks") !== null) {
   tasks = JSON.parse(localStorage.getItem("tasks"));
   displayTasks();
 }
@@ -34,27 +33,9 @@ function displayTasks() {
     taskElement.innerHTML = task.addedTaskText;
 
     //Creating the complete button, got inspiration from here how to add HTML elements: https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it
-    let button = document.createElement("button");
-    button.classList.add("complete-button");
-    button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
-
-    //Actually says WHEN task.complete is true, 37, 38 runs.
-    if (task.complete === true) {
-      taskElement.classList.add("button-group-done");
-      button.innerText = "COMPLETED";
-    }
 
     //finds the task and says its place in the array.
-    button.onclick = function () {
-      let taskNumber = tasks.indexOf(task);
-      toggleTasks(taskNumber);
-    };
-
-    //taskelement (parent) attaches/appends/connect its child, button here so its visible
-    taskElement.append(button);
-
-    //delete button added from HTML
-    button = document.createElement("button");
+    let button = document.createElement("button");
     button.classList.add("delete-button");
     button.innerText = "DELETE";
 
@@ -64,6 +45,25 @@ function displayTasks() {
       deleteTask(taskNumber);
     };
 
+    taskElement.append(button);
+
+    //taskelement (parent) attaches/appends/connect its child, button here so its visible
+
+    //delete button added from HTML
+    button = document.createElement("button");
+
+    button.classList.add("complete-button");
+    button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
+
+    //Actually says WHEN task.complete is true, 37, 38 runs.
+    if (task.complete === true) {
+      taskElement.classList.add("button-group-done");
+      button.innerText = "COMPLETED";
+    }
+    button.onclick = function () {
+      let taskNumber = tasks.indexOf(task);
+      toggleTasks(taskNumber);
+    };
     taskElement.append(button);
     taskContainer.append(taskElement);
   });
