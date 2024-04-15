@@ -6,7 +6,6 @@ let tasks = []; //Creating an array
 
 //load in local storage
 if (localStorage.getItem("tasks") === null) {
-  tasks = [];
 } else {
   tasks = JSON.parse(localStorage.getItem("tasks"));
   displayTasks();
@@ -34,7 +33,7 @@ function displayTasks() {
     let taskElement = document.createElement("li");
     taskElement.innerHTML = task.addedTaskText;
 
-    //Creating the complete button, got inspiration from here how to add HTML elements: https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it 
+    //Creating the complete button, got inspiration from here how to add HTML elements: https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it
     let button = document.createElement("button");
     button.classList.add("complete-button");
     button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
