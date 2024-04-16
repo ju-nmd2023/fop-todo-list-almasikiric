@@ -72,23 +72,6 @@ function displayTasks() {
   localStorage.tasks = JSON.stringify(tasks);
 }
 
-//it already has a click function in display tasks so that should be solved
-// create a function with a name, and access tasknumber in it so that it can TARGET one task
-// create a let or const ? dont know
-// create element AND class? task by adding complete button done (the one with red and strikethrough)
-
-// add toggle task function with ture false  statement
-// if should be if task is complete, it should be a line
-// otherwise, else should be resetted to normal.
-//how to keep track of task status. complete/ not complete?
-
-//create boo lean so that the correct task and index is complete when its true, otherwise false
-
-// complete should be able to go in a loop so u can click it on off, but im not sure how, maybe forEach?
-// displaytasks should be called in the function so that they are visible
-
-// (save in local storage)
-
 function toggleTasks(taskNumber) {
   //when its completed task looks like this {addedTaskText: "whatever", complete: true}
   // false: {addedTaskText: "whatever", complete: false}  <-- this value gets changed
