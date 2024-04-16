@@ -11,10 +11,10 @@ if (localStorage.getItem("tasks") !== null) {
 }
 
 function addedTasks() {
-  let newTaskText = inputFieldAdd.value.trim(); // removes extra spaces between words or letters, also before and after
+  let addedInput = inputFieldAdd.value.trim(); // removes extra spaces between words or letters, also before and after
 
-  if (newTaskText !== "") {
-    tasks.push({ addedTaskText: newTaskText, complete: false });
+  if (addedInput !== "") {
+    tasks.push({ taskName: addedInput, complete: false }); //Pushes addedtasks, complete????
     inputFieldAdd.value = "";
     displayTasks();
   } else {
@@ -30,7 +30,7 @@ function displayTasks() {
   //The loop of the array starts here
   tasks.forEach((task) => {
     let taskElement = document.createElement("li");
-    taskElement.innerHTML = task.addedTaskText;
+    taskElement.innerHTML = task.taskName;
 
     //Creating the complete button, got inspiration from here how to add HTML elements: https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it
 
@@ -73,8 +73,8 @@ function displayTasks() {
 }
 
 function toggleTasks(taskNumber) {
-  //when its completed task looks like this {addedTaskText: "whatever", complete: true}
-  // false: {addedTaskText: "whatever", complete: false}  <-- this value gets changed
+  //when its completed task looks like this {taskName: "whatever", complete: true}
+  // false: {taskName: "whatever", complete: false}  <-- this value gets changed
   if (tasks[taskNumber].complete === false) {
     //if its false
     tasks[taskNumber].complete = true; //change to true
