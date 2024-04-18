@@ -10,11 +10,11 @@ if (localStorage.getItem("tasks") !== null) {
   displayTasks();
 }
 
-function addedTasks() {
+function addTasks() {
   let addedInput = inputFieldAdd.value.trim(); // removes extra spaces between words or letters, also before and after
 
   if (addedInput !== "") {
-    tasks.push({ taskName: addedInput, complete: false }); //Pushes addedtasks, complete????
+    tasks.push({ taskName: addedInput, complete: false }); //Pushes addTasks
     inputFieldAdd.value = "";
     displayTasks();
   } else {
@@ -94,9 +94,9 @@ function deleteTask(taskNumber) {
 inputFieldAdd.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     inputFieldAdd.blur(); //removes the text marker after pressing enter, resets. Citation line 103: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/blur 13/4/2024
-    addedTasks();
+    addTasks();
   }
 });
 
-//When the add button is clicked, the function addedtasks runs
-addButton.addEventListener("click", addedTasks);
+//When the add button is clicked, the function addTasks runs
+addButton.addEventListener("click", addTasks);
