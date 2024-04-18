@@ -1,102 +1,103 @@
+//Disclaimer, yes I have some comments but it is because I wanted to go in depth and learn as much as possible, also had to plan many steps
+
 const addButton = document.getElementById("add-button");
 const inputFieldAdd = document.getElementById("input-field-add");
 const taskContainer = document.getElementById("ul-task-list");
 
-let tasks = []; //Creating an array
+let tasksArray = [];
 
 //load in local storage
-if (localStorage.getItem("tasks") !== null) {
-  tasks = JSON.parse(localStorage.getItem("tasks"));
-  displayTasks();
+if (localStorage.getItem("tasksArray") !== null) {
+  //null = does not exist
+  tasksArray = JSON.parse(localStorage.getItem("tasksArray"));
+  displaytasks();
 }
 
-function addTasks() {
-  let addedInput = inputFieldAdd.value.trim(); // removes extra spaces between words or letters, also before and after
+function addtasks() {
+  let addedInput = inputFieldAdd.value.trim(); // removes extra spaces between words or letters. also makes it so you cannot add only spaces as a taskitem
 
   if (addedInput !== "") {
-    tasks.push({ taskName: addedInput, complete: false }); //Pushes addTasks
-    inputFieldAdd.value = "";
-    displayTasks();
+    tasksArray.push({ taskName: addedInput, complete: false }); //Pushes addtasks, sets completed button to false (connected with the button)
+
+    displaytasks();
   } else {
-    inputFieldAdd.value = ""; //If adding a task with space, it wont submit and default input text is added again
-    alert("Please write a task");
+    alert("Please write a task :))");
   }
+  inputFieldAdd.value = ""; // always resets the input text (your plans...) after doing something
 }
 
 //empties entire tasklist
-function displayTasks() {
+function displaytasks() {
   taskContainer.innerHTML = "";
 
   //The loop of the array starts here
-  tasks.forEach((task) => {
+  tasksArray.forEach((taskItem) => {
     let taskElement = document.createElement("li");
-    taskElement.innerHTML = task.taskName;
+    taskElement.innerHTML = taskItem.taskName; //the task is accessed FROM tasksArray as singular to manipulate each task
 
-    //Creating the complete button, got inspiration from here how to add HTML elements: https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it
+    //Creating the complete button, got inspiration from here how to add HTML elements w/ styling: https://stackoverflow.com/questions/20786555/create-button-dynamically-and-assign-a-function-to-it
 
-    //finds the task and says its place in the array.
     let button = document.createElement("button");
     button.classList.add("delete-button");
     button.innerText = "DELETE";
 
-    //finds the index/number the task has, dont know how else to get it, incrementing tasknumber was flawed. Citation line 49-52 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+    //indexOf finds the particular task you want to delete and finds the place in the list, starts w 0. Citation line 46 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
     button.onclick = function () {
-      let taskNumber = tasks.indexOf(task);
-      deleteTask(taskNumber);
+      let taskNumber = tasksArray.indexOf(taskItem);
+      deletetask(taskNumber);
     };
-
+    //delete button added to HTML
     taskElement.append(button);
 
-    //taskelement (parent) attaches/appends/connect its child, button here so its visible
-
-    //delete button added from HTML
+    //Clear the delete button properties, empty button element
     button = document.createElement("button");
-
     button.classList.add("complete-button");
     button.innerText = "COMPLETE"; //This shows whats written in the buttons, also makes the button pop up
 
-    //Actually says WHEN task.complete is true, 37, 38 runs.
-    if (task.complete === true) {
+    //Actually says WHEN task.complete is true
+    if (taskItem.complete === true) {
       taskElement.classList.add("button-group-done");
       button.innerText = "COMPLETED";
     }
     button.onclick = function () {
-      let taskNumber = tasks.indexOf(task);
-      toggleTasks(taskNumber);
+      let taskNumber = tasksArray.indexOf(taskItem);
+      toggleTask(taskNumber);
     };
     taskElement.append(button);
+
+    //It tells the taskelement to be put inside the container, and visible there
     taskContainer.append(taskElement);
   });
 
   //save in local storage
-  localStorage.tasks = JSON.stringify(tasks);
+  localStorage.tasksArray = JSON.stringify(tasksArray);
 }
 
-function toggleTasks(taskNumber) {
-  //when its completed task looks like this {taskName: "whatever", complete: true}
-  // false: {taskName: "whatever", complete: false}  <-- this value gets changed
-  if (tasks[taskNumber].complete === false) {
-    //if its false
-    tasks[taskNumber].complete = true; //change to true
+function toggleTask(taskNumber) {
+  //function to invert the completestatus
+  if (tasksArray[taskNumber].complete === false) {
+    //If  false
+    tasksArray[taskNumber].complete = true; // Change it to true
   } else {
-    //if its true
-    tasks[taskNumber].complete = false; //change to false
+    // otherwise... (its already true)
+    tasksArray[taskNumber].complete = false; //..change to false
   }
-
-  displayTasks();
-}
-function deleteTask(taskNumber) {
-  tasks.splice(taskNumber, 1); //removes 1 task at clicked place (taskNumber)
-  displayTasks();
+  // Talked with my brother about a different solution that I could use next time :)
+  // tasksArray[taskNumber].complete = !tasksArray[taskNumber].complete;
+  displaytasks();
 }
 
-//Adding tasks with enter
+function deletetask(taskNumber) {
+  tasksArray.splice(taskNumber, 1);
+  displaytasks();
+}
+
+//Adding tasksArray with enter
 inputFieldAdd.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
-    inputFieldAdd.blur(); //removes the text marker after pressing enter, resets. Citation line 103: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/blur 13/4/2024
-    addTasks();
+    inputFieldAdd.blur(); //removes the text marker after pressing enter, resets. Citation: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/blur 13/4/2024
+    addtasks();
   }
 });
 
-//When the add button is clicked, the function addTasks runs
-addButton.addEventListener("click", addTasks);
+addButton.addEventListener("click", addtasks);
